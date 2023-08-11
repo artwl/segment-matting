@@ -7,7 +7,7 @@ from flask_cors import CORS
 
 from segment_anything import SamPredictor, sam_model_registry
 
-import server.matting
+import matting
 
 app = Flask(__name__)
 CORS(app)
@@ -53,7 +53,7 @@ def matting():
     image = Image.open(io.BytesIO(image_data))
     mask = Image.open(io.BytesIO(image_data))
 
-    image_matting = server.matting.matting(image, mask)
+    image_matting = matting.matting(image, mask)
 
     result_base64 = base64.b64encode(image_matting.tobytes()).decode('utf-8')
     result_list = [result_base64]
